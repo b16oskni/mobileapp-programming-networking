@@ -11,8 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,38 +22,44 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Mountain> mountainArrayList=new ArrayList<>();
-    ArrayAdapter<Mountain> adapter=new ArrayAdapter<>(this, R.layout.list_item_textview,R.id.my_item_textview,mountainArrayList);
+
+    ArrayList<Mountain> mountainList;
+    ArrayAdapter<Mountain> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new JsonTask().execute("HTTPS_URL_TO_JSON_DATA");
-
-        ListView my_listview= findViewById(R.id.myListView);
-        my_listview.setAdapter(adapter);
-        my_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mountainList = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, R.layout.list_item_textview,R.id.my_item_textview,mountainList);
+        ListView listview = findViewById(R.id.myListView);
+        listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Toast.makeText(getApplicationContext(),"Mountain", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),mountainList.get(position).info(), Toast.LENGTH_SHORT).show();
             }
         });
 
 
+        new JsonTask().execute ("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
     }
 
     @SuppressLint("StaticFieldLeak")
     private class JsonTask extends AsyncTask<String, String, String> {
 
+
         private HttpURLConnection connection = null;
         private BufferedReader reader = null;
 
+
+
+        @Override
         protected String doInBackground(String... params) {
             try {
-                URL url = new URL("http://wwwlab.iit.his.se/brom/kurser/mobilprog/jsonservice.php");
+                URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
@@ -89,9 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String json) {
+            adapter.notifyDataSetChanged();
             Log.d("TAG", json);
+
+
+
+            }
         }
+
     }
 
 
-}
