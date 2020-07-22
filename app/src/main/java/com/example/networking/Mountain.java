@@ -7,7 +7,7 @@ public class Mountain {
     private int height;
 
     //CONSTRUCTORS
-    public Mountain(String inName,String inLocation, int inHeight){
+    Mountain(String inName, String inLocation, int inHeight){
         name = inName;
         location = inLocation;
         height = inHeight;
@@ -15,9 +15,9 @@ public class Mountain {
     }
 
     //Interface
-    public String info(){
+    String info(){
         String tmp= "";
-        tmp+=name+" is located in mountain range "+location+" and reaches "+height+"m. above sea level.";
+        tmp+=name+" is located in "+location+" and reaches "+height+"m. above sea level.";
         return tmp;
     }
 

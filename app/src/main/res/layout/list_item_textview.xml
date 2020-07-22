@@ -2,6 +2,12 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/my_item_textview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="false">
+    android:layout_height="90dp"
+    android:background="#8BC34A"
+    android:focusableInTouchMode="false"
+
+    android:gravity="center_horizontal"
+    android:textAlignment="center"
+    android:textSize="20sp">
+
 </TextView>
