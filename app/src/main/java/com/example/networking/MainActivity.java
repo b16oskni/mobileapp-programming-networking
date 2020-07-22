@@ -11,6 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,6 +98,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String json) {
+            try {
+                JSONArray jsonArray = new JSONArray(json);
+                for(int i = 0; i < jsonArray.length(); i++){
+                    JSONObject json1 = jsonArray.getJSONObject(i);
+                    String name = json1.getString("name");
+                    String location = json1.getString("location");
+                    int height = json1.getInt("size");
+                    Mountain mountain = new Mountain(name,location,height);
+                    mountainList.add(mountain);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             adapter.notifyDataSetChanged();
             Log.d("TAG", json);
 
