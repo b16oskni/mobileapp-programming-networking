@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Toast.makeText(getApplicationContext(),mountainList.get(position).info(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,mountainList.get(position).info(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
             Log.d("TAG", json);
+
 
 
 
