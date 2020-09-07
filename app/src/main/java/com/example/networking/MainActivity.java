@@ -114,12 +114,9 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             Log.d("TAG", json);
 
-
-
-
-            }
         }
-
     }
+
+}
 
 
